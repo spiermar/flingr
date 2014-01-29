@@ -225,9 +225,9 @@ module.exports = function(passport) {
                         username: profile.username,
                         provider: 'instagram',
                         instagram: profile._json.data,
-                        instagram.accessToken: accessToken,
-                        instagram.refreshToken: refreshToken
                     });
+                    instagram.accessToken = accessToken;
+                    instagram.refreshToken = refreshToken;
                     user.save(function(err) {
                         if (err) console.log(err);
                         return done(err, user);
