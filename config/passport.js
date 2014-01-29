@@ -212,7 +212,7 @@ module.exports = function(passport) {
             clientSecret: config.instagram.clientSecret,
             callbackURL: config.instagram.callbackURL
         },
-        function(token, tokenSecret, profile, done) {
+        function(accessToken, refreshToken, profile, done) {
             User.findOne({
                 'instagram.id': profile.id
             }, function(err, user) {
@@ -224,7 +224,9 @@ module.exports = function(passport) {
                         name: profile.displayName,
                         username: profile.username,
                         provider: 'instagram',
-                        instagram: profile._json.data
+                        instagram: profile._json.data,
+                        instagram.accessToken: accessToken,
+                        instagram.refreshToken: refreshToken
                     });
                     user.save(function(err) {
                         if (err) console.log(err);
